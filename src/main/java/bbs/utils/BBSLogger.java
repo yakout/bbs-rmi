@@ -4,20 +4,17 @@ package bbs.utils;
 import java.io.*;
 import java.util.ArrayList;
 
-public class SystemLogger {
-    public SystemLogger(){
-
-    }
-    public void LogInfo(String fileName, ArrayList<ArrayList<Integer>> data) {
+public class BBSLogger {
+    public static void LogInfo(String fileName, ArrayList<ArrayList<Integer>> data) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
-            String logs = new String("");
+            StringBuilder logs = new StringBuilder();
             for (ArrayList<Integer> tuple : data) {
                 for (Integer number : tuple) {
-                    logs = logs + number.toString() + " ";
+                    logs.append(number.toString()).append(" ");
                 }
-                logs += "\n";
+                logs.append("\n");
             }
-            bw.write(logs);
+            bw.write(logs.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -118,6 +118,10 @@ public class Configuration {
         public Map<Integer, String> getWriters() {
             return config.getWriters();
         }
+
+        public String getRmiRegistryPort() {
+            return config.getRmiRegistryPort();
+        }
     }
 
     /**

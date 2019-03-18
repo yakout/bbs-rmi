@@ -8,40 +8,40 @@ import java.io.InputStream;
 import java.util.Properties;
 public class Start {
 
-    private static Configuration fillConfig(Properties prop){
+    private static Configuration fillConfig(Properties prop) {
         Configuration configs = new Configuration();
         prop.forEach((key, value) -> {
             String keyString = key.toString();
             String valueString = value.toString();
-            if(keyString.toLowerCase().contains(new String("port").toLowerCase())){
-                configs.setServerPort(new String(valueString));
-            }else if(keyString.toLowerCase().contains(new String("server").toLowerCase())){
-                configs.setServerIP(new String(valueString));
-            }else if(keyString.toLowerCase().contains(new String("readers").toLowerCase())){
-                configs.setNumOfReader(new String(valueString));
-            }else if(keyString.toLowerCase().contains(new String("writers").toLowerCase())){
-                configs.setNumOfWriters(new String(valueString));
-            }else if(keyString.toLowerCase().contains(new String("accesses").toLowerCase())){
-                configs.setNumOfAccess(new String(valueString));
+            if(keyString.toLowerCase().contains("port".toLowerCase())){
+                configs.setServerPort(valueString);
+            }else if(keyString.toLowerCase().contains("server".toLowerCase())){
+                configs.setServerIP(valueString);
+            }else if(keyString.toLowerCase().contains("readers".toLowerCase())){
+                configs.setNumOfReader(valueString);
+            }else if(keyString.toLowerCase().contains("writers".toLowerCase())){
+                configs.setNumOfWriters(valueString);
+            }else if(keyString.toLowerCase().contains("accesses".toLowerCase())){
+                configs.setNumOfAccess(valueString);
             }else{
-                String number = "";
+                StringBuilder number = new StringBuilder();
                 int ptr = keyString.length() - 1;
                 while(keyString.charAt(ptr) != 'r'){
                     ptr--;
                 }
                 ptr++;
                 while(ptr  < keyString.length()){
-                    number += keyString.charAt(ptr++);
+                    number.append(keyString.charAt(ptr++));
                 }
-                if(keyString.toLowerCase().contains(new String("writer").toLowerCase()))
-                    configs.addWriter(Integer.parseInt(number),valueString);
+                if(keyString.toLowerCase().contains("writer".toLowerCase()))
+                    configs.addWriter(Integer.parseInt(number.toString()),valueString);
                 else
-                    configs.addReader(Integer.parseInt(number),valueString);
+                    configs.addReader(Integer.parseInt(number.toString()),valueString);
             }
         });
         return configs;
     }
-    private static Configuration readProperties(String fileName){
+    private static Configuration readProperties(String fileName) {
         Properties prop = null;
         InputStream input = null;
         try {
@@ -65,8 +65,6 @@ public class Start {
 
     public static void main(String args[]) {
        Configuration config = readProperties("src/main/resources/system.properties");
-        System.out.println(config.getServerPort());
-
-
+        System.out.println(config.getClientConfig().getServerPort());
     }
 }

@@ -6,15 +6,11 @@ import bbs.utils.Configuration;
 
 public class Writer extends Client {
 
-    public Writer(ClientType type, Configuration.ClientConfig config) {
-        super(type, config);
-    }
-
-    public void run() {
-
+    public Writer(Configuration.ClientConfig config) {
+        super(ClientType.WRITER, config);
     }
 
     public void sendRequest() {
-
+        // TODO
     }
 }
