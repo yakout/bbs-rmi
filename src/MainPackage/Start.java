@@ -1,10 +1,11 @@
 package MainPackage;
+
+import utils.SystemLogger;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLOutput;
 import java.util.Properties;
-
 
 
 public class Start{
@@ -15,11 +16,9 @@ public class Start{
         }
         InputStream input = null;
         try {
-
             input = new FileInputStream(fileName);
             prop.load(input);
         } catch (IOException ex) {
-            ex.printStackTrace();
             System.out.println("file is not found in the working directory");
         } finally {
             if (input != null) {
@@ -32,7 +31,9 @@ public class Start{
         }
     }
     public static void main(String args[]){
-        readProperties("system.properties");
+       // readProperties("system.properties");
+        SystemLogger x = new SystemLogger();
+
 
     }
 }
