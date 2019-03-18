@@ -1,7 +1,7 @@
-package ClientPackage;
+package Main.java.ClientPackage;
 
-import ConstantsAndEnumsPackage.ClientType;
-import utils.Configuration;
+import Main.java.ConstantsAndEnumsPackage.ClientType;
+import Main.java.Utils.Configuration;
 
 public class Writer extends Client {
 

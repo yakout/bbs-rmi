@@ -1,12 +1,10 @@
-package MainPackage;
+package Main.java.MainPackage;
 
-import utils.SystemLogger;
+import Main.java.ServerPackage.Server;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Properties;
 
 
@@ -34,7 +32,9 @@ public class Start {
     }
 
     public static void main(String args[]) {
-        // readProperties("system.properties");
-        SystemLogger x = new SystemLogger();
+        readProperties("src/main/resources/system.properties");
+        Server s = new Server();
+        s.updateServerObj(1);
+
     }
 }

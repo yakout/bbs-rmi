@@ -1,4 +1,4 @@
-package ConstantsAndEnumsPackage;
+package Main.java.ConstantsAndEnumsPackage;
 
 public enum ClientType
 {

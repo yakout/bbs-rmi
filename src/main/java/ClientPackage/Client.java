@@ -1,9 +1,7 @@
-package ClientPackage;
+package Main.java.ClientPackage;
 
-import ConstantsAndEnumsPackage.ClientType;
-import utils.Configuration;
-
-import java.security.PublicKey;
+import Main.java.ConstantsAndEnumsPackage.ClientType;
+import Main.java.Utils.Configuration;
 
 public abstract class Client implements Runnable {
     protected ClientType type = null;
