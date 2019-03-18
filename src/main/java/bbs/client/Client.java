@@ -1,7 +1,7 @@
-package Main.java.ClientPackage;
+package bbs.client;
 
-import Main.java.ConstantsAndEnumsPackage.ClientType;
-import Main.java.Utils.Configuration;
+import bbs.utils.ClientType;
+import bbs.utils.Configuration;
 
 public abstract class Client implements Runnable {
     protected ClientType type = null;

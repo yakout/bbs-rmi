@@ -1,12 +1,11 @@
-package Main.java.MainPackage;
+package bbs;
 
-import Main.java.ServerPackage.Server;
+import bbs.server.Server;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
 
 public class Start {
     private static Properties prop = null;

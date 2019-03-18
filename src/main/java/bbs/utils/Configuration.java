@@ -1,4 +1,4 @@
-package Main.java.Utils;
+package bbs.utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,7 +56,7 @@ public class Configuration {
         return new ClientConfig();
     }
 
-    // ******************* Inner configurations classes *******************
+    // ******************* Inner configurations classes ************************
     public static class ServerConfig {
         ServerConfig() {
 

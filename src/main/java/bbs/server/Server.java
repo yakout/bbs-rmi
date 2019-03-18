@@ -1,4 +1,5 @@
-package Main.java.ServerPackage;
+package bbs.server;
+
 import java.util.concurrent.atomic.AtomicInteger;
 public class Server {
     private AtomicInteger serverObj = null;

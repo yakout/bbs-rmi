@@ -1,7 +1,8 @@
-package Main.java.Utils;
+package bbs.utils;
+
+
 import java.io.*;
 import java.util.ArrayList;
-
 
 public class SystemLogger {
     public SystemLogger(){

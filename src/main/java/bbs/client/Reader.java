@@ -1,7 +1,8 @@
-package Main.java.ClientPackage;
+package bbs.client;
 
-import Main.java.ConstantsAndEnumsPackage.ClientType;
-import Main.java.Utils.Configuration;
+
+import bbs.utils.ClientType;
+import bbs.utils.Configuration;
 
 public class Reader extends Client {
     public Reader(ClientType type, Configuration.ClientConfig config){
