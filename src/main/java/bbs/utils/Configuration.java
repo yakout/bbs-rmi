@@ -11,13 +11,15 @@ public class Configuration {
     private String serverIP;
     private String numOfAccess;
     private String numOfReader;
-    private String numOfWritter;
+    private String numOfWriters;
+    private String rmiRegistryPort;
+
     private Map<Integer, String> readers;
     private Map<Integer, String> writers;
 
     public Configuration() {
-        readers = new HashMap<Integer, String>();
-        writers = new HashMap<Integer, String>();
+        readers = new HashMap<>();
+        writers = new HashMap<>();
     }
 
     public void setServerPort(String port) {
@@ -36,8 +38,12 @@ public class Configuration {
         this.numOfReader = numOfReader;
     }
 
-    public void setNumOfWritter(String numOfWritter) {
-        this.numOfWritter = numOfWritter;
+    public void setNumOfWriters(String numOfWriters) {
+        this.numOfWriters = numOfWriters;
+    }
+
+    public void setRmiRegistryPort(String rmiRegistryPort) {
+        this.rmiRegistryPort = rmiRegistryPort;
     }
 
     public void addReader(int id, String reader) {
@@ -49,23 +55,87 @@ public class Configuration {
     }
 
     public ServerConfig getServerConfig() {
-        return new ServerConfig();
+        return new ServerConfig(this);
     }
 
     public ClientConfig getClientConfig() {
-        return new ClientConfig();
+        return new ClientConfig(this);
+    }
+
+
+    String getServerPort() {
+        return serverPort;
+    }
+
+    String getServerIP() {
+        return serverIP;
+    }
+
+    Map<Integer, String> getReaders() {
+        return readers;
+    }
+
+    Map<Integer, String> getWriters() {
+        return writers;
+    }
+
+    String getNumOfAccess() {
+        return numOfAccess;
+    }
+
+    String getNumOfReader() {
+        return numOfReader;
+    }
+
+    String getNumOfWriters() {
+        return numOfWriters;
+    }
+
+    String getRmiRegistryPort() {
+        return rmiRegistryPort;
     }
 
     // ******************* Inner configurations classes ************************
     public static class ServerConfig {
-        ServerConfig() {
+        private Configuration config;
 
+        ServerConfig(Configuration config) {
+            this.config = config;
+        }
+
+        public String getServerIP() {
+            return config.getServerIP();
+        }
+
+        public Map<Integer, String> getReaders() {
+            return config.getReaders();
+        }
+
+        public String getServerPort() {
+            return config.getServerPort();
+        }
+
+        public Map<Integer, String> getWriters() {
+            return config.getWriters();
         }
     }
 
+    /**
+     * client only need server port and ip.
+     */
     public static class ClientConfig {
-        ClientConfig () {
-
+        Configuration config;
+        ClientConfig (Configuration config) {
+            this.config = config;
         }
+
+        public String getServerIP() {
+            return config.getServerIP();
+        }
+
+        public String getServerPort() {
+            return config.getServerPort();
+        }
+
     }
 }

@@ -20,7 +20,7 @@ public class Start {
             }else if(keyString.toLowerCase().contains(new String("readers").toLowerCase())){
                 configs.setNumOfReader(new String(valueString));
             }else if(keyString.toLowerCase().contains(new String("writers").toLowerCase())){
-                configs.setNumOfWritter(new String(valueString));
+                configs.setNumOfWriters(new String(valueString));
             }else if(keyString.toLowerCase().contains(new String("accesses").toLowerCase())){
                 configs.setNumOfAccess(new String(valueString));
             }else{
