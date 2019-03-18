@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 
-public class Start{
+public class Start {
     private static Properties prop = null;
     private static void readProperties(String fileName){
-        if(prop == null){
+        if (prop == null) {
             prop = new Properties();
         }
         InputStream input = null;
@@ -32,7 +32,9 @@ public class Start{
             }
         }
     }
-    public static void main(String args[]){
-       // readProperties("system.properties");
+
+    public static void main(String args[]) {
+        // readProperties("system.properties");
+        SystemLogger x = new SystemLogger();
     }
 }

@@ -2,6 +2,6 @@ package ConstantsAndEnumsPackage;
 
 public enum ClientType
 {
-   READER,
+    READER,
     WRITER;
 }
