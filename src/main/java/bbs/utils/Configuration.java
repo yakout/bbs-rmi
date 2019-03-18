@@ -12,12 +12,12 @@ public class Configuration {
     private String numOfAccess;
     private String numOfReader;
     private String numOfWritter;
-    private Map<String, String> readers;
-    private Map<String, String> writers;
+    private Map<Integer, String> readers;
+    private Map<Integer, String> writers;
 
     public Configuration() {
-        readers = new HashMap<String, String>();
-        writers = new HashMap<String, String>();
+        readers = new HashMap<Integer, String>();
+        writers = new HashMap<Integer, String>();
     }
 
     public void setServerPort(String port) {
@@ -40,11 +40,11 @@ public class Configuration {
         this.numOfWritter = numOfWritter;
     }
 
-    public void addReader(String id, String reader) {
+    public void addReader(int id, String reader) {
         readers.put(id, reader);
     }
 
-    public void addWriter(String id, String writer) {
+    public void addWriter(int id, String writer) {
         writers.put(id, writer);
     }
 
