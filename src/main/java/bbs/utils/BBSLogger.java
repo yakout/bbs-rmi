@@ -7,11 +7,11 @@ import java.util.ArrayList;
 public class BBSLogger {
     public BBSLogger(){}
 
-    public void LogInfo(String fileName, ArrayList<Integer> data) throws IOException {
+    public void LogInfo(String fileName, ArrayList<String> data) throws IOException {
         Writer output;
         output = new BufferedWriter(new FileWriter(fileName,true));
-        for(Integer number : data){
-            output.append(Integer.toString(number) + " ");
+        for(String number : data){
+            output.append(number + " ");
         }
         output.append(System.lineSeparator());
         output.close();

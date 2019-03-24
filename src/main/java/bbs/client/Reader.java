@@ -4,6 +4,7 @@ package bbs.client;
 import bbs.server.BBSRemoteImpl;
 import bbs.utils.BBSLogger;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.*;
 import java.util.ArrayList;
@@ -36,8 +37,17 @@ public class Reader{
             e.printStackTrace();
         }
         for(int i = 0 ; i < numberOfAccess ; ++i){
-            ArrayList<Integer> queryLog = referenceToRemote.read(Integer.toString(id));
-            lineLogger.LogInfo(fileName,queryLog);
+            ArrayList<String> queryLog = null;
+            try {
+                queryLog = referenceToRemote.read(Integer.toString(id));
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            try {
+                lineLogger.LogInfo(fileName,queryLog);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Thread.sleep(1000);
 
         }
