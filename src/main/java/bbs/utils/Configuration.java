@@ -63,35 +63,35 @@ public class Configuration {
     }
 
 
-    String getServerPort() {
+    public String getServerPort() {
         return serverPort;
     }
 
-    String getServerIP() {
+    public String getServerIP() {
         return serverIP;
     }
 
-    Map<Integer, String> getReaders() {
+    public Map<Integer, String> getReaders() {
         return readers;
     }
 
-    Map<Integer, String> getWriters() {
+    public Map<Integer, String> getWriters() {
         return writers;
     }
 
-    String getNumOfAccess() {
+    public String getNumOfAccess() {
         return numOfAccess;
     }
 
-    String getNumOfReader() {
+    public String getNumOfReader() {
         return numOfReader;
     }
 
-    String getNumOfWriters() {
+    public String getNumOfWriters() {
         return numOfWriters;
     }
 
-    String getRmiRegistryPort() {
+    public String getRmiRegistryPort() {
         return rmiRegistryPort;
     }
 
