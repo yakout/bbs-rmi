@@ -9,22 +9,29 @@ public class BBS {
     private AtomicInteger rSeq;
     private AtomicInteger sSeq;
     private AtomicInteger oVal;
+    private AtomicInteger rNum;
 
     BBS() {
         rSeq = new AtomicInteger(0);
         sSeq = new AtomicInteger(0);
+        rNum = new AtomicInteger(0);
+        oVal = new AtomicInteger(-1);
     }
 
 
     public Integer generate_rSeqNum() {
-        return rSeq.addAndGet(1);
+        return rSeq.incrementAndGet();
     }
 
     public Integer generate_sSeqNum() {
-        return sSeq.addAndGet(1);
+        return sSeq.incrementAndGet();
     }
 
     public Integer get_oVal() {
-        return oVal.addAndGet(1);
+        return oVal.incrementAndGet();
+    }
+
+    public Integer get_rNum() {
+        return rNum.incrementAndGet();
     }
 }

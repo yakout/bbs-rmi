@@ -18,10 +18,11 @@ public class BBSRemoteImpl extends UnicastRemoteObject implements BBSRemoteInter
     @Override
     public ArrayList<String> read(String rid) throws RemoteException {
         ArrayList<String> ret = new ArrayList<>();
+
         Integer rSeq = bbs.generate_rSeqNum();
         Integer sSeq = bbs.generate_sSeqNum();
-        Integer oVal = bbs.getOVal();
-        Integer rNum = bbs.getRNum();
+        Integer oVal = bbs.get_oVal();
+        Integer rNum = bbs.get_rNum();
 
         ret.add(rSeq.toString());
 
@@ -35,7 +36,7 @@ public class BBSRemoteImpl extends UnicastRemoteObject implements BBSRemoteInter
         ArrayList<String> ret = new ArrayList<>();
         Integer rSeq = bbs.generate_rSeqNum();
         Integer sSeq = bbs.generate_sSeqNum();
-        Integer oVal = bbs.getOVal();
+        Integer oVal = bbs.get_oVal();
 
         ret.add(rSeq.toString());
 
