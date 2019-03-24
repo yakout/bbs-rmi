@@ -36,7 +36,7 @@ public class Reader{
             e.printStackTrace();
         }
         for(int i = 0 ; i < numberOfAccess ; ++i){
-            ArrayList<Integer> queryLog = referenceToRemote.read(id);
+            ArrayList<Integer> queryLog = referenceToRemote.read(Integer.toString(id));
             lineLogger.LogInfo(fileName,queryLog);
             Thread.sleep(1000);
 
