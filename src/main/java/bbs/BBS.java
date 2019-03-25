@@ -18,7 +18,6 @@ public class BBS {
         oVal = new AtomicInteger(-1);
     }
 
-
     public Integer generate_rSeqNum() {
         return rSeq.incrementAndGet();
     }

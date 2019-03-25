@@ -34,7 +34,7 @@ public class Configuration {
         this.numOfAccess = numOfAccess;
     }
 
-    public void setNumOfReader(String numOfReader) {
+    public void setNumOfReaders(String numOfReader) {
         this.numOfReader = numOfReader;
     }
 
@@ -83,7 +83,7 @@ public class Configuration {
         return numOfAccess;
     }
 
-    public String getNumOfReader() {
+    public String getNumOfReaders() {
         return numOfReader;
     }
 

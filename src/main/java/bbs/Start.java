@@ -19,7 +19,7 @@ public class Start {
             }else if(keyString.toLowerCase().contains("server".toLowerCase())){
                 configs.setServerIP(valueString);
             }else if(keyString.toLowerCase().contains("readers".toLowerCase())){
-                configs.setNumOfReader(valueString);
+                configs.setNumOfReaders(valueString);
             }else if(keyString.toLowerCase().contains("writers".toLowerCase())){
                 configs.setNumOfWriters(valueString);
             }else if(keyString.toLowerCase().contains("accesses".toLowerCase())){
@@ -69,7 +69,8 @@ public class Start {
        String path = System.getProperty("user.dir");
         //initiate server
         Runtime.getRuntime().exec("ssh " + config.getServerConfig().getServerIP() +
-                " cd " + path + " ;" + "java bbs/Server " + config.getNumOfAccess() + " " + config.getServerConfig().getServerIP()
+                " cd " + path + " ;" + "java bbs/Server " + config.getNumOfAccess()+ " " +config.getNumOfReaders() 
+                + " " + config.getNumOfWriters() +" " + config.getServerConfig().getServerIP()
         + " " + config.getServerConfig().getServerPort() + " " + config.getServerConfig().getRmiRegistryPort());
         //initiate writers
         Map<Integer,String> readers = config.getReaders();
