@@ -33,6 +33,10 @@ public class Server {
         return new PrintWriter(new FileWriter(new File(WRITER_LOG_PATH), true));
     }
 
+    private static BBS bbs;
+    private static Registry reg;
+    private static BBSRemoteImpl bbs_impl;
+
     public static void main(String[] args) {
         // init loggers handlers
         try {
@@ -45,10 +49,9 @@ public class Server {
         }
 
         // inti server config params
-        String numOfAccess = args[0];
-        String srvHost = args[1];
-        String srvPort = args[2];
-        String rmiRegistryPort = args[3];
+        String srvHost = args[0];
+        String srvPort = args[1];
+        Integer rmiRegistryPort = Integer.parseInt(args[2]);
 
         System.setProperty("java.rmi.server.hostname", srvHost);
 
@@ -56,11 +59,11 @@ public class Server {
             printLogsHeaders();
             // createRegistry is very useful for testing, as you can start and
             // stop the registry from your test as necessary.
-            Registry reg = LocateRegistry.createRegistry(Integer.parseInt(rmiRegistryPort));
-            BBS bbs = new BBS(Integer.parseInt(numOfAccess));
-            BBSRemoteImpl bbs_impl = new BBSRemoteImpl(bbs);
-            Naming.rebind("BBSRemoteInterface", bbs_impl);
-        } catch (RemoteException | MalformedURLException e) {
+            reg = LocateRegistry.createRegistry(rmiRegistryPort);
+            bbs = new BBS();
+            bbs_impl = new BBSRemoteImpl(bbs);
+            reg.rebind("BBSRemoteInterface", bbs_impl);
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
     }

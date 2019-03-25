@@ -1,6 +1,7 @@
 package bbs;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -11,31 +12,48 @@ public class BBS {
     private AtomicInteger sSeq;
     private AtomicInteger oVal;
     private AtomicInteger rNum;
-    private Integer numOfAccess;
-	private ConcurrentHashMap<Integer, Integer> clients_info;
 
-    public BBS(Integer numOfAccess) {
+    public BBS() {
         rSeq = new AtomicInteger(0);
         sSeq = new AtomicInteger(0);
         rNum = new AtomicInteger(0);
         oVal = new AtomicInteger(-1);
-        this.numOfAccess = numOfAccess;
-        clients_info = new ConcurrentHashMap<Integer, Integer>();
     }
 
-    public Integer generate_rSeqNum() {
+    private Integer generate_rSeqNum() {
         return rSeq.incrementAndGet();
     }
 
-    public Integer generate_sSeqNum() {
+    private Integer generate_sSeqNum() {
         return sSeq.incrementAndGet();
     }
 
-    public Integer get_oVal() {
+    private Integer get_oVal() {
         return oVal.incrementAndGet();
     }
 
-    public Integer get_rNum() {
+    private Integer get_rNum() {
         return rNum.incrementAndGet();
+    }
+
+    public Map<String, Integer> write(String wid) {
+        Map<String, Integer> writer_info = new HashMap<>();
+
+        writer_info.put("rSeq", generate_rSeqNum());
+        writer_info.put("sSeq", generate_sSeqNum());
+        writer_info.put("oVal", get_oVal());
+
+        return writer_info;
+    }
+
+    public Map<String, Integer> read(String rid) {
+        Map<String, Integer> reader_info = new HashMap<>();
+
+        reader_info.put("rSeq", generate_rSeqNum());
+        reader_info.put("sSeq", generate_sSeqNum());
+        reader_info.put("oVal", get_oVal());
+        reader_info.put("rNum", get_rNum());
+
+        return reader_info;
     }
 }

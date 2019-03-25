@@ -1,11 +1,11 @@
 package bbs;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -29,10 +29,11 @@ public class BBSRemoteImpl extends UnicastRemoteObject implements BBSRemoteInter
 
         random_sleep();
         
-        Integer rSeq = bbs.generate_rSeqNum();
-        Integer sSeq = bbs.generate_sSeqNum();
-        Integer oVal = bbs.get_oVal();
-        Integer rNum = bbs.get_rNum();
+        Map<String, Integer> reader_info = bbs.read(rid);
+        Integer rSeq = reader_info.get("rSeq");
+        Integer sSeq = reader_info.get("sSeq");
+        Integer oVal = reader_info.get("oVal");
+        Integer rNum = reader_info.get("rNum");
 
         ret.add(rSeq.toString());
         ret.add(sSeq.toString());
@@ -50,14 +51,16 @@ public class BBSRemoteImpl extends UnicastRemoteObject implements BBSRemoteInter
     }
 
     @Override
-    public ArrayList<String> write(String wid, String news) throws RemoteException {
+    public ArrayList<String> write(String wid) throws RemoteException {
         ArrayList<String> ret = new ArrayList<>();
 
         random_sleep();
 
-        Integer rSeq = bbs.generate_rSeqNum();
-        Integer sSeq = bbs.generate_sSeqNum();
-        Integer oVal = bbs.get_oVal();
+        Map<String, Integer> writer_info = bbs.write(wid);
+
+        Integer rSeq = writer_info.get("rSeq");
+        Integer sSeq = writer_info.get("sSeq");
+        Integer oVal = writer_info.get("oVal");
 
         ret.add(rSeq.toString());
         ret.add(sSeq.toString());

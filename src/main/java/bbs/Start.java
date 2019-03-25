@@ -71,8 +71,7 @@ public class Start {
        
         //initiate server
         Runtime.getRuntime().exec("ssh " + config.getServerConfig().getServerIP() +
-                " cd " + path + " ;" + "java bbs/Server " + config.getNumOfAccess()+ " " +config.getNumOfReaders() 
-                + " " + config.getNumOfWriters() +" " + config.getServerConfig().getServerIP()
+                " cd " + path + " ;" + "java bbs/Server " + config.getServerConfig().getServerIP()
         + " " + config.getServerConfig().getServerPort() + " " + config.getServerConfig().getRmiRegistryPort());
                     
         //initiate writers

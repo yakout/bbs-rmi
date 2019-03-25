@@ -38,7 +38,7 @@ public class Reader{
         for(int i = 0 ; i < numberOfAccess ; ++i){
             ArrayList<String> queryLog = null;
             try {
-                System.out.print(referenceToRemote);
+                System.out.println("request #" + i);
                 queryLog = referenceToRemote.read(Integer.toString(id));
             } catch (RemoteException e) {
                 e.printStackTrace();

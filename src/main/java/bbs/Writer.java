@@ -28,10 +28,7 @@ public class Writer{
         try {
             Registry reg = LocateRegistry.getRegistry(serverIP, Integer.parseInt(rmiPort));
             referenceToRemote = (BBSRemoteInterface) reg.lookup("BBSRemoteInterface");
-        } catch (NotBoundException e) {
-            e.printStackTrace();
-            System.exit(1);
-        } catch (RemoteException e) {
+        } catch (NotBoundException | RemoteException e) {
             e.printStackTrace();
             System.exit(1);
         }
@@ -39,6 +36,7 @@ public class Writer{
         for (int i = 0 ; i < numberOfAccess ; ++i) {
             ArrayList<String> queryLog = null;
             try {
+                System.out.print("request #" + i);
                 queryLog = referenceToRemote.write(Integer.toString(id));
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -60,4 +58,3 @@ public class Writer{
         }
     }
 }
-

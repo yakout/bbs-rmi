@@ -9,5 +9,5 @@ import java.util.ArrayList;
  */
 public interface BBSRemoteInterface extends Remote {
     public ArrayList<String> read(String rid) throws RemoteException;
-    public ArrayList<String> write(String wid, String news) throws RemoteException;
+    public ArrayList<String> write(String wid) throws RemoteException;
 }
