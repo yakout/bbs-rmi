@@ -1,9 +1,10 @@
 package bbs;
 
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.*;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
 public class Writer{
@@ -25,18 +26,20 @@ public class Writer{
     public void sendWriteRequests() throws InterruptedException {
         BBSRemoteInterface referenceToRemote = null;
         try {
-            referenceToRemote = (BBSRemoteInterface)Naming.lookup("BBS");
+            Registry reg = LocateRegistry.getRegistry(serverIP, Integer.parseInt(rmiPort));
+            referenceToRemote = (BBSRemoteInterface) reg.lookup("BBSRemoteInterface");
         } catch (NotBoundException e) {
             e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+            System.exit(1);
         } catch (RemoteException e) {
             e.printStackTrace();
+            System.exit(1);
         }
-        for(int i = 0 ; i < numberOfAccess ; ++i){
+
+        for (int i = 0 ; i < numberOfAccess ; ++i) {
             ArrayList<String> queryLog = null;
             try {
-                queryLog = referenceToRemote.write(Integer.toString(id),Integer.toString(id));
+                queryLog = referenceToRemote.write(Integer.toString(id), Integer.toString(id));
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
@@ -46,10 +49,9 @@ public class Writer{
                 e.printStackTrace();
             }
             Thread.sleep(1000);
-
         }
     }
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Writer client = new Writer(Integer.parseInt(args[0]),Integer.parseInt(args[1]),args[2],args[3]);
         try {
             client.sendWriteRequests();

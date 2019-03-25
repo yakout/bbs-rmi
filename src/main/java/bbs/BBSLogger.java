@@ -10,8 +10,8 @@ public class BBSLogger {
 
     public void LogInfo(String fileName, ArrayList<String> data) throws IOException {
         Writer output;
-        output = new BufferedWriter(new FileWriter(fileName,true));
-        for(String number : data){
+        output = new BufferedWriter(new FileWriter(fileName, true));
+        for(String number : data) {
             output.append(number + " ");
         }
         output.append(System.lineSeparator());

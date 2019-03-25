@@ -30,8 +30,10 @@ public class Reader{
             referenceToRemote = (BBSRemoteInterface) reg.lookup("BBSRemoteInterface");
         } catch (NotBoundException e) {
             e.printStackTrace();
+            System.exit(1);
         } catch (RemoteException e) {
             e.printStackTrace();
+            System.exit(1);
         }
         for(int i = 0 ; i < numberOfAccess ; ++i){
             ArrayList<String> queryLog = null;
@@ -47,7 +49,6 @@ public class Reader{
                 e.printStackTrace();
             }
             Thread.sleep(1000);
-
         }
     }
     public static void main(String[] args){

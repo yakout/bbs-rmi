@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
 public class Start {
-
     private static Configuration fillConfig(Properties prop) {
         Configuration configs = new Configuration();
         prop.forEach((key, value) -> {
@@ -67,10 +66,14 @@ public class Start {
     public static void main(String args[]) throws IOException {
        Configuration config = readProperties("./bbs/system.properties");
        String path = System.getProperty("user.dir");
+
+       cleanup(config, path);
+       
         //initiate server
         Runtime.getRuntime().exec("ssh " + config.getServerConfig().getServerIP() +
                 " cd " + path + " ;" + "java bbs/Server " + config.getNumOfAccess() + " " + config.getServerConfig().getServerIP()
         + " " + config.getServerConfig().getServerPort() + " " + config.getServerConfig().getRmiRegistryPort());
+                    
         //initiate writers
         Map<Integer,String> readers = config.getReaders();
         for(Map.Entry<Integer,String> entry : readers.entrySet()) {
@@ -91,5 +94,12 @@ public class Start {
                     + " " + config.getServerConfig().getServerIP()
                     + " " + config.getServerConfig().getRmiRegistryPort());
         }
+    }
+
+    private static void cleanup(Configuration config, String path) throws IOException {
+        // clear any prev server and client logs
+        System.out.println("Cleaning prev server logs ..");
+        Runtime.getRuntime().exec("ssh " + config.getServerConfig().getServerIP() +
+                    " cd " + path + " ;" + "rm *.txt");
     }
 }
