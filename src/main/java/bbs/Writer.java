@@ -39,7 +39,7 @@ public class Writer{
         for (int i = 0 ; i < numberOfAccess ; ++i) {
             ArrayList<String> queryLog = null;
             try {
-                queryLog = referenceToRemote.write(Integer.toString(id), Integer.toString(id));
+                queryLog = referenceToRemote.write(Integer.toString(id));
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
