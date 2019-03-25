@@ -1,9 +1,10 @@
 package bbs;
 
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.*;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
 public class Reader{
@@ -25,10 +26,9 @@ public class Reader{
     public void sendReadRequests() throws InterruptedException {
         BBSRemoteInterface referenceToRemote = null;
         try {
-             referenceToRemote = (BBSRemoteInterface)Naming.lookup("BBS");
+            Registry reg = LocateRegistry.getRegistry(serverIP, Integer.parseInt(rmiPort));
+            referenceToRemote = (BBSRemoteInterface) reg.lookup("BBSRemoteInterface");
         } catch (NotBoundException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -36,6 +36,7 @@ public class Reader{
         for(int i = 0 ; i < numberOfAccess ; ++i){
             ArrayList<String> queryLog = null;
             try {
+                System.out.print(referenceToRemote);
                 queryLog = referenceToRemote.read(Integer.toString(id));
             } catch (RemoteException e) {
                 e.printStackTrace();

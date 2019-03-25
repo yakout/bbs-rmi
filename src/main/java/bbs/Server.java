@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * The server does the following things:
@@ -47,11 +48,14 @@ public class Server {
 
         try {
             printLogsHeaders();
-            Registry reg = LocateRegistry.getRegistry(rmiRegistryPort);
+            // createRegistry is very useful for testing, as you can start and 
+            // stop the registry from your test as necessary.
+            Registry reg = LocateRegistry.createRegistry(Integer.parseInt(rmiRegistryPort));
             BBS bbs = new BBS();
-            BBSRemoteInterface bbs_i = new BBSRemoteImpl(bbs);
-            //RmiMap stub = (RmiMap) UnicastRemoteObject.exportObject(BBSRemoteImpl, 0);
-            reg.rebind("BBS", bbs_i);
+            BBSRemoteImpl bbs_impl = new BBSRemoteImpl(bbs);
+            BBSRemoteInterface stub = (BBSRemoteInterface) UnicastRemoteObject.exportObject(bbs_impl, 0);
+            
+            reg.rebind("BBSRemoteInterface", stub);
         } catch (RemoteException e) {
             writers_log.print(e.getMessage());
             writers_log.close();
