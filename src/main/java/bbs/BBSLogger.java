@@ -1,7 +1,8 @@
-package bbs.utils;
+package bbs;
 
 
 import java.io.*;
+import java.io.Writer;
 import java.util.ArrayList;
 
 public class BBSLogger {

@@ -1,4 +1,4 @@
-package bbs.utils;
+package bbs;
 
 public enum ClientType
 {

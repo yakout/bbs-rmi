@@ -1,4 +1,4 @@
-package bbs.server;
+package bbs;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

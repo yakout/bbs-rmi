@@ -1,7 +1,5 @@
 package bbs;
 
-import bbs.utils.Configuration;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +12,9 @@ public class Start {
         prop.forEach((key, value) -> {
             String keyString = key.toString();
             String valueString = value.toString();
-            if(keyString.toLowerCase().contains("port".toLowerCase())){
+            if(keyString.toLowerCase().contains("rmiregistry".toLowerCase())){
+                configs.setRmiRegistryPort(valueString);
+            }else if(keyString.toLowerCase().contains("port".toLowerCase())){
                 configs.setServerPort(valueString);
             }else if(keyString.toLowerCase().contains("server".toLowerCase())){
                 configs.setServerIP(valueString);
@@ -65,19 +65,19 @@ public class Start {
     }
 
     public static void main(String args[]) throws IOException {
-       Configuration config = readProperties("src/main/resources/system.properties");
+       Configuration config = readProperties("./bbs/system.properties");
        String path = System.getProperty("user.dir");
         //initiate server
         Runtime.getRuntime().exec("ssh " + config.getServerConfig().getServerIP() +
-                " cd " + path + " ;" + "java Server " + config.getNumOfAccess() + " " + config.getServerConfig().getServerIP()
-        + " " + config.getServerConfig().getRmiRegistryPort());
+                " cd " + path + " ;" + "java bbs/Server " + config.getNumOfAccess() + " " + config.getServerConfig().getServerIP()
+        + " " + config.getServerConfig().getServerPort() + " " + config.getServerConfig().getRmiRegistryPort());
         //initiate writers
         Map<Integer,String> readers = config.getReaders();
         for(Map.Entry<Integer,String> entry : readers.entrySet()) {
             String hostName = entry.getValue();
             Integer hostID = entry.getKey();
             Runtime.getRuntime().exec("ssh " + hostName +
-                    " cd " + path + " ;" + "java Reader " + config.getNumOfAccess() + " " + Integer.toString(hostID)
+                    " cd " + path + " ;" + "java bbs/Reader " + config.getNumOfAccess() + " " + Integer.toString(hostID)
                     + " " + config.getServerConfig().getServerIP()
                     + " " + config.getServerConfig().getRmiRegistryPort());
         }
@@ -87,7 +87,7 @@ public class Start {
             String hostName = entry.getValue();
             Integer hostID = entry.getKey();
             Runtime.getRuntime().exec("ssh " + hostName +
-                    " cd " + path + " ;" + "java Writer " + config.getNumOfAccess() + " " + Integer.toString(hostID)
+                    " cd " + path + " ;" + "java bbs/Writer " + config.getNumOfAccess() + " " + Integer.toString(hostID)
                     + " " + config.getServerConfig().getServerIP()
                     + " " + config.getServerConfig().getRmiRegistryPort());
         }

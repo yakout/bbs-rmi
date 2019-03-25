@@ -1,22 +1,19 @@
-package bbs.client;
+package bbs;
 
-
-import bbs.server.BBSRemoteImpl;
-import bbs.utils.BBSLogger;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.*;
 import java.util.ArrayList;
 
-public class Reader{
+public class Writer{
     private Integer numberOfAccess;
     private Integer id;
     private String serverIP;
     private String rmiPort;
     private BBSLogger lineLogger;
     private String fileName;
-    public Reader(Integer numberOfAccess,Integer id,String serverIP,String rmiPort){
+    public Writer(Integer numberOfAccess,Integer id,String serverIP,String rmiPort){
         this.numberOfAccess = numberOfAccess;
         this.id = id;
         this.serverIP = serverIP;
@@ -25,10 +22,10 @@ public class Reader{
         fileName = new String("log_"+Integer.toString(id)+".txt");
     }
 
-    public void sendReadRequests() throws InterruptedException {
-        BBSRemoteImpl referenceToRemote = null;
+    public void sendWriteRequests() throws InterruptedException {
+        BBSRemoteInterface referenceToRemote = null;
         try {
-             referenceToRemote = (BBSRemoteImpl)Naming.lookup("rmi://" + serverIP +":"+ rmiPort);
+            referenceToRemote = (BBSRemoteInterface)Naming.lookup("BBS");
         } catch (NotBoundException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
@@ -39,7 +36,7 @@ public class Reader{
         for(int i = 0 ; i < numberOfAccess ; ++i){
             ArrayList<String> queryLog = null;
             try {
-                queryLog = referenceToRemote.read(Integer.toString(id));
+                queryLog = referenceToRemote.write(Integer.toString(id),Integer.toString(id));
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
@@ -53,9 +50,9 @@ public class Reader{
         }
     }
     public static void main(String[] args){
-        Reader client = new Reader(Integer.parseInt(args[0]),Integer.parseInt(args[1]),args[2],args[3]);
+        Writer client = new Writer(Integer.parseInt(args[0]),Integer.parseInt(args[1]),args[2],args[3]);
         try {
-            client.sendReadRequests();
+            client.sendWriteRequests();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

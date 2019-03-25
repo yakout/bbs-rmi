@@ -1,4 +1,4 @@
-package bbs.utils;
+package bbs;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package bbs.server;
+package bbs;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
