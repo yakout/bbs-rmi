@@ -1,5 +1,6 @@
 package bbs;
 
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -10,12 +11,16 @@ public class BBS {
     private AtomicInteger sSeq;
     private AtomicInteger oVal;
     private AtomicInteger rNum;
+    private Integer numOfAccess;
+	private ConcurrentHashMap<Integer, Integer> clients_info;
 
-    BBS() {
+    public BBS(Integer numOfAccess) {
         rSeq = new AtomicInteger(0);
         sSeq = new AtomicInteger(0);
         rNum = new AtomicInteger(0);
         oVal = new AtomicInteger(-1);
+        this.numOfAccess = numOfAccess;
+        clients_info = new ConcurrentHashMap<Integer, Integer>();
     }
 
     public Integer generate_rSeqNum() {
