@@ -20,7 +20,7 @@ import java.rmi.registry.Registry;
  */
 public class Server {
     public final static String READER_LOG_PATH = "server_readers.txt";
-    public final static String WRITER_LOG_PATH = "sever_writers.txt";
+    public final static String WRITER_LOG_PATH = "server_writers.txt";
 
     public static PrintWriter readers_log = null;
     public static PrintWriter writers_log = null;

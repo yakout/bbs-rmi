@@ -13,21 +13,17 @@ import java.util.Random;
  */
 public class BBSRemoteImpl extends UnicastRemoteObject implements BBSRemoteInterface {
     private static final long serialVersionUID = 1L;
-    private Random rand;
 
     private BBS bbs;
 
     BBSRemoteImpl(BBS bbs) throws RemoteException {
         super();
         this.bbs = bbs;
-        this.rand = new Random(System.currentTimeMillis());
     }
 
     @Override
     public ArrayList<String> read(String rid) throws RemoteException {
         ArrayList<String> ret = new ArrayList<>();
-
-        random_sleep();
         
         Map<String, Integer> reader_info = bbs.read(rid);
         Integer rSeq = reader_info.get("rSeq");
@@ -54,8 +50,6 @@ public class BBSRemoteImpl extends UnicastRemoteObject implements BBSRemoteInter
     public ArrayList<String> write(String wid) throws RemoteException {
         ArrayList<String> ret = new ArrayList<>();
 
-        random_sleep();
-
         Map<String, Integer> writer_info = bbs.write(wid);
 
         Integer rSeq = writer_info.get("rSeq");
@@ -75,19 +69,5 @@ public class BBSRemoteImpl extends UnicastRemoteObject implements BBSRemoteInter
         }
 
         return ret;
-    }
-
-    /**
-     * Each reading and writing operation takes a
-     * random amount of time (500 to 1000ms)
-     */
-    private void random_sleep() {
-        try {
-            int low = 500;
-            int high = 1000;
-            Thread.sleep(rand.nextInt(high - low) + low);
-        } catch (InterruptedException e1) {
-            e1.printStackTrace();
-        }
     }
 }

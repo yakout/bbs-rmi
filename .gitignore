@@ -23,3 +23,8 @@
 hs_err_pid*
 .idea
 target/
+ssh/authorized_keys
+ssh/id_ecdsa
+ssh/id_ecdsa.pub
+
+*.vscode

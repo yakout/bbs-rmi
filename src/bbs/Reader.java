@@ -52,7 +52,12 @@ public class Reader{
         }
     }
     public static void main(String[] args){
-        Reader client = new Reader(Integer.parseInt(args[0]),Integer.parseInt(args[1]),args[2],args[3]);
+        Integer numOfAccess = Integer.parseInt(args[0]);
+        Integer rid = Integer.parseInt(args[1]);
+        String serverIP = args[2];
+        String rmiPort = args[3];
+
+        Reader client = new Reader(numOfAccess, rid, serverIP, rmiPort);
         try {
             client.sendReadRequests();
         } catch (InterruptedException e) {

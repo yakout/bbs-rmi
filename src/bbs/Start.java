@@ -70,29 +70,48 @@ public class Start {
        cleanup(config, path);
        
         //initiate server
-        Runtime.getRuntime().exec("ssh " + config.getServerConfig().getServerIP() +
-                " cd " + path + " ;" + "java bbs/Server " + config.getServerConfig().getServerIP()
-        + " " + config.getServerConfig().getServerPort() + " " + config.getServerConfig().getRmiRegistryPort());
-                    
-        //initiate writers
-        Map<Integer,String> readers = config.getReaders();
-        for(Map.Entry<Integer,String> entry : readers.entrySet()) {
-            String hostName = entry.getValue();
-            Integer hostID = entry.getKey();
-            Runtime.getRuntime().exec("ssh " + hostName +
-                    " cd " + path + " ;" + "java bbs/Reader " + config.getNumOfAccess() + " " + Integer.toString(hostID)
-                    + " " + config.getServerConfig().getServerIP()
-                    + " " + config.getServerConfig().getRmiRegistryPort());
+        String serverSSHCommand = "ssh " + config.getServerConfig().getServerIP()
+                                + " cd " + path + " ;" + "java bbs/Server "
+                                + config.getServerConfig().getServerIP()
+                                + " " + config.getServerConfig().getServerPort() 
+                                + " " + config.getServerConfig().getRmiRegistryPort();
+        System.out.println("server SSH command: " + serverSSHCommand);
+        Runtime.getRuntime().exec(serverSSHCommand);
+            
+        try {
+            System.out.println("Wait until server is fully initialized ..");
+            Thread.sleep(1000 * 5); // 5s
+            System.out.println("Done");
+        } catch(InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
+
         //initiate readers
         Map<Integer,String> writers = config.getWriters();
         for(Map.Entry<Integer,String> entry : writers.entrySet()) {
             String hostName = entry.getValue();
             Integer hostID = entry.getKey();
-            Runtime.getRuntime().exec("ssh " + hostName +
-                    " cd " + path + " ;" + "java bbs/Writer " + config.getNumOfAccess() + " " + Integer.toString(hostID)
-                    + " " + config.getServerConfig().getServerIP()
-                    + " " + config.getServerConfig().getRmiRegistryPort());
+            String readerSSHCommand = "ssh " + hostName + " cd " + path + " ;" 
+                                    + "java bbs/Writer " + config.getNumOfAccess() 
+                                    + " " + Integer.toString(hostID) + " " 
+                                    + config.getServerConfig().getServerIP() 
+                                    + " " + config.getServerConfig().getRmiRegistryPort();
+            System.out.println("reader SSH command: " + readerSSHCommand);
+            Runtime.getRuntime().exec(readerSSHCommand);
+        }
+
+        //initiate writers
+        Map<Integer,String> readers = config.getReaders();
+        for(Map.Entry<Integer,String> entry : readers.entrySet()) {
+            String hostName = entry.getValue();
+            Integer hostID = entry.getKey();
+            String wirterSSHCommand = "ssh " + hostName + " cd " + path + " ;" 
+                                    + "java bbs/Reader " + config.getNumOfAccess() 
+                                    + " " + Integer.toString(hostID) 
+                                    + " " + config.getServerConfig().getServerIP()
+                                    + " " + config.getServerConfig().getRmiRegistryPort();
+            System.out.println("writer SSH command: " + wirterSSHCommand);
+            Runtime.getRuntime().exec(wirterSSHCommand);
         }
     }
 

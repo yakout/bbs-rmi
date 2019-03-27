@@ -1,0 +1,33 @@
+FROM openjdk:8-jre-alpine
+
+LABEL maintainer="iyakout@hotmail.com"
+
+RUN apk --update add --no-cache openssh bash \
+    && sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config \
+    && echo "root:root" | chpasswd \
+    && echo 'PasswordAuthentication no' >> /etc/ssh/sshd_config \
+    && mkdir /root/.ssh \
+    && touch /root/.ssh/authorized_keys \
+    && chmod 0700 /root/.ssh \
+    && rm -rf /var/cache/apk/*
+
+RUN sed -ie 's/#Port 22/Port 22/g' /etc/ssh/sshd_config
+RUN sed -ir 's/#HostKey \/etc\/ssh\/ssh_host_key/HostKey \/etc\/ssh\/ssh_host_key/g' /etc/ssh/sshd_config
+RUN sed -ir 's/#HostKey \/etc\/ssh\/ssh_host_rsa_key/HostKey \/etc\/ssh\/ssh_host_rsa_key/g' /etc/ssh/sshd_config
+RUN sed -ir 's/#HostKey \/etc\/ssh\/ssh_host_dsa_key/HostKey \/etc\/ssh\/ssh_host_dsa_key/g' /etc/ssh/sshd_config
+RUN sed -ir 's/#HostKey \/etc\/ssh\/ssh_host_ecdsa_key/HostKey \/etc\/ssh\/ssh_host_ecdsa_key/g' /etc/ssh/sshd_config
+RUN sed -ir 's/#HostKey \/etc\/ssh\/ssh_host_ed25519_key/HostKey \/etc\/ssh\/ssh_host_ed25519_key/g' /etc/ssh/sshd_config
+RUN /usr/bin/ssh-keygen -A
+RUN ssh-keygen -t rsa -b 4096 -f  /etc/ssh/ssh_host_key
+
+COPY . /home/
+COPY ssh/config /root/.ssh/
+COPY ssh/authorized_keys /root/.ssh/
+
+ENV rpc_src /home/src
+
+WORKDIR $rpc_src
+
+EXPOSE 1099
+EXPOSE 22
+CMD ["/usr/sbin/sshd","-D"]
