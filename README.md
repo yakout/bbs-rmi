@@ -1,5 +1,7 @@
 # bbs (Bulletin Board System)
 
+Developing a distributed client/server version of news bulletin board system using a service-oriented request/reply scheme (RPC/RMI).
+
 ## Running and Testing
 For testing on multiple machines I used Docker to make many containers that each will represent a reader or writer client.
 
@@ -61,6 +63,7 @@ writer SSH command: ssh reader2 cd /home/src ;java bbs/Reader 3 2 server 1099
 writer SSH command: ssh reader3 cd /home/src ;java bbs/Reader 3 3 server 1099
 Sleeping 20s until all clients are done ..
 Done.
+===================================================
 SERVER READERS LOGS
 sSeq	 oVal	 rID	 rNum
 1	 -1 	 0	 1
